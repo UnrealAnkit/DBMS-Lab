@@ -1,0 +1,67 @@
+# 📊 EXP  (Joins + Advanced Queries)
+
+### 1. Display all employees with their department name
+
+```sql id="e8q1"
+SELECT E.ENAME, D.Dname FROM Employee E JOIN Department D ON E.DeptNo=D.DeptNo;
+```
+
+### 2. Display employees whose manager name is JONES and also display their manager name
+
+```sql id="e8q2"
+SELECT E.ENAME AS EMPLOYEE, M.ENAME AS MANAGER FROM Employee E JOIN Employee M ON E.MGR=M.EMPNO WHERE M.ENAME='JONES';
+```
+
+### 3. Display employee name, job, dept name, manager name (grade skipped as no table given)
+
+```sql id="e8q3"
+SELECT E.ENAME, E.JOB, D.Dname, M.ENAME AS MANAGER FROM Employee E JOIN Department D ON E.DeptNo=D.DeptNo LEFT JOIN Employee M ON E.MGR=M.EMPNO;
+```
+
+### 4. List employee name, job, salary grade and department except clerk, highest salary first
+
+```sql id="e8q4"
+SELECT E.ENAME, E.JOB, D.Dname, E.SAL FROM Employee E JOIN Department D ON E.DeptNo=D.DeptNo WHERE E.JOB<>'CLERK' ORDER BY E.SAL DESC;
+```
+
+### 5. Display employee name, job and manager including employees without manager
+
+```sql id="e8q5"
+SELECT E.ENAME, E.JOB, IFNULL(M.ENAME,'NO MANAGER') AS MANAGER FROM Employee E LEFT JOIN Employee M ON E.MGR=M.EMPNO;
+```
+
+### 6. List employee name, job, annual salary, deptno, dept name who earn 36000/year or not clerks
+
+```sql id="e8q6"
+SELECT E.ENAME, E.JOB, E.SAL*12 AS ANNUAL_SAL, E.DeptNo, D.Dname FROM Employee E JOIN Department D ON E.DeptNo=D.DeptNo WHERE E.SAL*12=36000 OR E.JOB<>'CLERK';
+```
+
+### 7. List employee details who earn 30000/year and are not clerks
+
+```sql id="e8q7"
+SELECT E.ENAME, E.JOB, E.SAL*12 AS ANNUAL_SAL, E.DeptNo, D.Dname FROM Employee E JOIN Department D ON E.DeptNo=D.DeptNo WHERE E.SAL*12=30000 AND E.JOB<>'CLERK';
+```
+
+### 8. List employees with their manager’s name and number, show 'NO MANAGER' if none
+
+```sql id="e8q8"
+SELECT E.EMPNO, E.ENAME, IFNULL(M.EMPNO,'-') AS MGR_NO, IFNULL(M.ENAME,'NO MANAGER') AS MANAGER FROM Employee E LEFT JOIN Employee M ON E.MGR=M.EMPNO;
+```
+
+### 9. Select dept name, dept no and sum of salary
+
+```sql id="e8q9"
+SELECT D.Dname, D.DeptNo, SUM(E.SAL) AS TOTAL_SAL FROM Employee E JOIN Department D ON E.DeptNo=D.DeptNo GROUP BY D.DeptNo, D.Dname;
+```
+
+### 10. Display employee number, name and location of department (location assumed missing → using dept name)
+
+```sql id="e8q10"
+SELECT E.EMPNO, E.ENAME, D.Dname FROM Employee E JOIN Department D ON E.DeptNo=D.DeptNo;
+```
+
+### 11. Display employee name and department name for each employee
+
+```sql id="e8q11"
+SELECT E.ENAME, D.Dname FROM Employee E JOIN Department D ON E.DeptNo=D.DeptNo;
+```
