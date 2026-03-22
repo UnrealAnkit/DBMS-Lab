@@ -1,0 +1,61 @@
+#  EXP 9 (Subqueries + Advanced Filtering)
+
+### 1. Display the name of employee who earns highest salary
+
+```sql id="e9q1"
+SELECT ENAME FROM Employee WHERE SAL=(SELECT MAX(SAL) FROM Employee);
+```
+
+### 2. Display empno and name of clerk earning highest salary among clerks
+
+```sql id="e9q2"
+SELECT EMPNO, ENAME FROM Employee WHERE JOB='CLERK' AND SAL=(SELECT MAX(SAL) FROM Employee WHERE JOB='CLERK');
+```
+
+### 3. Display names of salesman earning more than highest salary of any clerk
+
+```sql id="e9q3"
+SELECT ENAME FROM Employee WHERE JOB='SALESMAN' AND SAL>(SELECT MAX(SAL) FROM Employee WHERE JOB='CLERK');
+```
+
+### 4. Display names of clerks earning more than JAMES and less than SCOTT
+
+```sql id="e9q4"
+SELECT ENAME FROM Employee WHERE JOB='CLERK' AND SAL>(SELECT SAL FROM Employee WHERE ENAME='JAMES') AND SAL<(SELECT SAL FROM Employee WHERE ENAME='SCOTT');
+```
+
+### 5. Display names of employees earning more than JAMES or more than SCOTT
+
+```sql id="e9q5"
+SELECT ENAME FROM Employee WHERE SAL>(SELECT SAL FROM Employee WHERE ENAME='JAMES') OR SAL>(SELECT SAL FROM Employee WHERE ENAME='SCOTT');
+```
+
+### 6. Display names of employees earning highest salary in their departments
+
+```sql id="e9q6"
+SELECT ENAME FROM Employee E WHERE SAL=(SELECT MAX(SAL) FROM Employee WHERE DeptNo=E.DeptNo);
+```
+
+### 7. Display names of employees earning highest salary in their job groups
+
+```sql id="e9q7"
+SELECT ENAME FROM Employee E WHERE SAL=(SELECT MAX(SAL) FROM Employee WHERE JOB=E.JOB);
+```
+
+### 8. Display employee names working in accounting department
+
+```sql id="e9q8"
+SELECT ENAME FROM Employee WHERE DeptNo=(SELECT DeptNo FROM Department WHERE Dname='ACCOUNTING');
+```
+
+### 9. Display employee names working in Chicago (location not given, assumed not applicable)
+
+```sql id="e9q9"
+-- Requires LOCATION column/table, not available in given schema
+```
+
+### 10. Display job groups having total salary greater than max salary of managers
+
+```sql id="e9q10"
+SELECT JOB FROM Employee GROUP BY JOB HAVING SUM(SAL)>(SELECT MAX(SAL) FROM Employee WHERE JOB='MANAGER');
+```
