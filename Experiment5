@@ -1,0 +1,91 @@
+#  EXP 5 (Aggregate Functions + String Functions)
+
+### 1. Display the total number of employees working in the company
+
+```sql id="e5q1"
+SELECT COUNT(*) FROM Employee;
+```
+
+### 2. Display the total salary being paid to all employees
+
+```sql id="e5q2"
+SELECT SUM(SAL) FROM Employee;
+```
+
+### 3. Display the maximum salary from employee table
+
+```sql id="e5q3"
+SELECT MAX(SAL) FROM Employee;
+```
+
+### 4. Display the minimum salary from employee table
+
+```sql id="e5q4"
+SELECT MIN(SAL) FROM Employee;
+```
+
+### 5. Display the average salary from employee table
+
+```sql id="e5q5"
+SELECT AVG(SAL) FROM Employee;
+```
+
+### 6. Display the maximum salary being paid to clerk
+
+```sql id="e5q6"
+SELECT MAX(SAL) FROM Employee WHERE JOB='CLERK';
+```
+
+### 7. Display the maximum salary being paid in dept no 20
+
+```sql id="e5q7"
+SELECT MAX(SAL) FROM Employee WHERE DeptNo=20;
+```
+
+### 8. Display the minimum salary paid to any salesman
+
+```sql id="e5q8"
+SELECT MIN(SAL) FROM Employee WHERE JOB='SALESMAN';
+```
+
+### 9. Display the average salary drawn by managers
+
+```sql id="e5q9"
+SELECT AVG(SAL) FROM Employee WHERE JOB='MANAGER';
+```
+
+### 10. Display the total salary drawn by analyst working in dept no 40
+
+```sql id="e5q10"
+SELECT SUM(SAL) FROM Employee WHERE JOB='ANALYST' AND DeptNo=40;
+```
+
+### 11. Display the names of the employees in uppercase
+
+```sql id="e5q11"
+SELECT UPPER(ENAME) FROM Employee;
+```
+
+### 12. Display the names of the employees in lowercase
+
+```sql id="e5q12"
+SELECT LOWER(ENAME) FROM Employee;
+```
+
+### 13. Display the names of the employees in proper case
+
+```sql id="e5q13"
+SELECT CONCAT(UPPER(LEFT(ENAME,1)), LOWER(SUBSTRING(ENAME,2))) AS Proper_Name FROM Employee;
+```
+
+### 14. Display the length of your name using appropriate function
+
+```sql id="e5q14"
+SELECT LENGTH('ANKIT');
+```
+
+### 15. Display the length of all the employee names
+
+```sql id="e5q15"
+SELECT ENAME, LENGTH(ENAME) FROM Employee;
+```
