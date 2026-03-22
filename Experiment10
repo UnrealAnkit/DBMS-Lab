@@ -1,0 +1,61 @@
+#  EXP 10 (Subqueries + Joins)
+
+### 1. Display names of employees from dept 10 with salary greater than ANY employee in other departments
+
+```sql id="e10q1"
+SELECT ENAME FROM Employee WHERE DeptNo=10 AND SAL>ANY(SELECT SAL FROM Employee WHERE DeptNo<>10);
+```
+
+### 2. Display names of employees from dept 10 with salary greater than ALL employees in other departments
+
+```sql id="e10q2"
+SELECT ENAME FROM Employee WHERE DeptNo=10 AND SAL>ALL(SELECT SAL FROM Employee WHERE DeptNo<>10);
+```
+
+### 3. Display details of employees in sales dept and grade = 3 (grade not available, approximated using salary range)
+
+```sql id="e10q3"
+-- Requires SALGRADE table, not provided
+```
+
+### 4. Display those who are not managers and who are managers (all employees)
+
+```sql id="e10q4"
+SELECT * FROM Employee;
+```
+
+### 5. Display employees whose manager name is JONES
+
+```sql id="e10q5"
+SELECT E.ENAME FROM Employee E JOIN Employee M ON E.MGR=M.EMPNO WHERE M.ENAME='JONES';
+```
+
+### 6. Display ename who are working in sales dept
+
+```sql id="e10q6"
+SELECT ENAME FROM Employee WHERE DeptNo=(SELECT DeptNo FROM Department WHERE Dname='SALES');
+```
+
+### 7. Display employee name, deptname, salary and comm for salary between 2000–5000 and location Chicago
+
+```sql id="e10q7"
+-- LOCATION column not available in given schema
+```
+
+### 8. Display employees whose salary is greater than their manager's salary
+
+```sql id="e10q8"
+SELECT E.ENAME FROM Employee E JOIN Employee M ON E.MGR=M.EMPNO WHERE E.SAL>M.SAL;
+```
+
+### 9. Display employees working in same department as their manager
+
+```sql id="e10q9"
+SELECT E.ENAME FROM Employee E JOIN Employee M ON E.MGR=M.EMPNO WHERE E.DeptNo=M.DeptNo;
+```
+
+### 10. Display grade and employee name for dept 10 or 30 but grade not 4 and joined before 31-Dec-82
+
+```sql id="e10q10"
+-- Requires SALGRADE table, not provided
+```
