@@ -1,0 +1,91 @@
+#  EXP 6 (Functions + Date Operations)
+
+### 1. Display empno, ename, dept name instead of deptno (using CASE in MySQL)
+
+```sql id="e6q1"
+SELECT EMPNO, ENAME, CASE DeptNo WHEN 10 THEN 'RESEARCH' WHEN 20 THEN 'ACCOUNTING' WHEN 30 THEN 'SALES' WHEN 40 THEN 'OPERATIONS' END AS DNAME FROM Employee;
+```
+
+### 2. Display your age in days
+
+```sql id="e6q2"
+SELECT DATEDIFF(CURDATE(),'2000-01-01') AS AGE_IN_DAYS;
+```
+
+### 3. Display your age in months
+
+```sql id="e6q3"
+SELECT TIMESTAMPDIFF(MONTH,'2000-01-01',CURDATE()) AS AGE_IN_MONTHS;
+```
+
+### 4. Display the current date as formatted text
+
+```sql id="e6q4"
+SELECT DATE_FORMAT(CURDATE(),'%D %M %W %Y');
+```
+
+### 5. Display formatted joining message for each employee
+
+```sql id="e6q5"
+SELECT CONCAT(ENAME,' has joined the company on ',DATE_FORMAT(HIREDATE,'%W %D %M %Y')) FROM Employee;
+```
+
+### 6. Scott has joined the company on formatted date
+
+```sql id="e6q6"
+SELECT CONCAT(ENAME,' has joined the company on ',DATE_FORMAT(HIREDATE,'%W %D %M %Y')) FROM Employee WHERE ENAME='SCOTT';
+```
+
+### 7. Find the nearest Saturday after current date
+
+```sql id="e6q7"
+SELECT DATE_ADD(CURDATE(), INTERVAL (7 - DAYOFWEEK(CURDATE()) + 7) % 7 DAY);
+```
+
+### 8. Display current time
+
+```sql id="e6q8"
+SELECT CURTIME();
+```
+
+### 9. Display the date three months before current date
+
+```sql id="e6q9"
+SELECT DATE_SUB(CURDATE(), INTERVAL 3 MONTH);
+```
+
+### 10. Display employees who joined in December
+
+```sql id="e6q10"
+SELECT * FROM Employee WHERE MONTH(HIREDATE)=12;
+```
+
+### 11. Display employees where first 2 chars of hiredate match last 2 digits of salary
+
+```sql id="e6q11"
+SELECT * FROM Employee WHERE LEFT(DAY(HIREDATE),2)=RIGHT(SAL,2);
+```
+
+### 12. Display employees whose 10% salary equals year of joining
+
+```sql id="e6q12"
+SELECT * FROM Employee WHERE (SAL*0.10)=YEAR(HIREDATE);
+```
+
+### 13. Display employees who joined before 15th month (interpreted as month < 6 for safety)
+
+```sql id="e6q13"
+SELECT * FROM Employee WHERE MONTH(HIREDATE)<6;
+```
+
+### 14. Display employees who joined before 15th day of month
+
+```sql id="e6q14"
+SELECT * FROM Employee WHERE DAY(HIREDATE)<15;
+```
+
+### 15. Display employees whose joining year equals deptno (logical interpretation)
+
+```sql id="e6q15"
+SELECT * FROM Employee WHERE YEAR(HIREDATE)=DeptNo;
+```
